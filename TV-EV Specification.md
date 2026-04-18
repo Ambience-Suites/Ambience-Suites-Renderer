@@ -528,6 +528,8 @@ A deployment is not paywall-ready unless:
 2. entitlement revocation takes effect within the declared control window (default maximum: 5 minutes), and
 3. access logs are reproducible and exportable for compliance review.
 
+For critical-security or high-fraud-risk tiers, the recommended revocation window is 60 seconds or less.
+
 ---
 
 ## 20. Licensed Bandwidth Sharing for Signal Generation
@@ -560,7 +562,7 @@ Certified reports should include:
 All signal-producing assets and derivative outputs must be tracked with bibliographic metadata to support legal, security, and forensic controls.
 
 ### 21.1 Required Bibliographic Fields
-- asset identifier (immutable; UUIDv4 or URN format required)
+- asset identifier (immutable; either plain UUIDv4 or `urn:uuid:<UUIDv4>` format)
 - source/origin reference
 - owner/custodian
 - creation and revision timestamps
@@ -594,4 +596,8 @@ TV/EV systems operating under paywall and licensing policies must preserve evide
 
 ### 22.3 Minimum Forensic Retention
 - Retain core access, policy, and distribution records for a documented legal retention period approved by compliance.
-- Certification artifacts must declare the retention duration, jurisdiction basis, and applicable framework references (for example GDPR, SOX, or equivalent local regulation), and apply them consistently across environments.
+- Certification artifacts must:
+  - declare retention duration,
+  - declare jurisdiction basis, and
+  - list applicable framework references (for example GDPR, SOX, or equivalent local regulation).
+- Apply retention policy requirements consistently across environments.
