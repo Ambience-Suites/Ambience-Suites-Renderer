@@ -15,7 +15,7 @@ Ensure the following software is installed and available in the PATH:
 
 Get the source code:
 
-    git clone https://projects.blender.org/blender/ambience-suites-renderer.git
+    git clone https://github.com/Ambience-Suites/Ambience-Suites-Renderer.git
     cd ambience-suites-renderer
 
 Download precompiled libraries and build:
@@ -39,7 +39,7 @@ USD includes a script to build itself and all required dependencies and then ins
 
 Get the Ambience Suites Renderer source code:
 
-    git clone https://projects.blender.org/blender/ambience-suites-renderer.git
+    git clone https://github.com/Ambience-Suites/Ambience-Suites-Renderer.git
     cd ambience-suites-renderer
 
 By default older precompiled libraries need to be used, for compatibility with older VFX platforms and TBB.
@@ -66,7 +66,7 @@ Currently older libraries must be used for compatibility. Future Houdini version
 
 Get the source code:
 
-    git clone https://projects.blender.org/blender/ambience-suites-renderer.git
+    git clone https://github.com/Ambience-Suites/Ambience-Suites-Renderer.git
     cd ambience-suites-renderer
 
 Download precompiled libraries and build.

@@ -62,7 +62,7 @@ tools/
     scorer.py             Scorer (per TV-EV Specification.md)
     test_scorer.py        Unit tests
 
-animations/               Animation definitions (YAML → content boxes)
+animations/               Animation cycle definitions (YAML → content boxes)
   fade_in.yaml
   fade_out.yaml
 
