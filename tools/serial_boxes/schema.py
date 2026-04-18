@@ -32,7 +32,7 @@ VALID_BOX_TYPES = ("content", "state", "config")
 VALID_CONTENT_TYPES = ("ui_component", "narrative", "style", "layout", "animation")
 VALID_PERMISSION_RULESETS = {
     "default": VALID_CONTENT_TYPES,
-    "billfold_primary_uiux_llm_slm": ("ui_component", "style", "layout", "animation", "narrative"),
+    "billfold_primary_uiux_llm_slm": VALID_CONTENT_TYPES,
     "datos_novelas_prompt_extension": ("ui_component", "layout", "narrative"),
 }
 VALID_COMPRESSION = ("none", "gzip", "brotli")
@@ -137,15 +137,19 @@ class BoxPayload:
         return errors
 
     def checksum(self) -> str:
-        """Compute the SHA-256 checksum of this payload."""
+        """
+        Compute the SHA-256 checksum of this payload.
+
+        Note: ``permission_ruleset`` is serialized only when not ``"default"``,
+        so legacy payloads and default-ruleset payloads keep stable checksums.
+        """
         serialised = json.dumps(self.as_dict(), sort_keys=True, ensure_ascii=True)
         return hashlib.sha256(serialised.encode()).hexdigest()
 
     def as_dict(self) -> Dict[str, Any]:
-        return {
+        payload: Dict[str, Any] = {
             "content_type": self.content_type,
             "data": self.data,
-            "permission_ruleset": self.permission_ruleset,
             "dependencies": [
                 {
                     "box_id": d.box_id,
@@ -156,6 +160,9 @@ class BoxPayload:
                 for d in self.dependencies
             ],
         }
+        if self.permission_ruleset != "default":
+            payload["permission_ruleset"] = self.permission_ruleset
+        return payload
 
 
 # ---------------------------------------------------------------------------

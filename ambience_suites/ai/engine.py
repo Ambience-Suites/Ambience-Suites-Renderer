@@ -129,6 +129,14 @@ class EngineConfig:
         ]
     )
 
+    def __post_init__(self) -> None:
+        primary_count = sum(1 for feature in self.prompt_features if feature.primary)
+        if primary_count > 1:
+            raise ValueError(
+                "EngineConfig.prompt_features supports only one primary feature, "
+                f"found {primary_count}"
+            )
+
 
 # ---------------------------------------------------------------------------
 # 1970ai Engine
@@ -256,6 +264,9 @@ class AI1970Engine:
         )
 
     def active_prompt_features(self) -> List[PromptFeature]:
-        """Return enabled prompt features with primary feature(s) first."""
+        """Return enabled prompt features with the primary feature first."""
         features = [feature for feature in self.config.prompt_features if feature.enabled]
-        return sorted(features, key=lambda feature: (not feature.primary, feature.name))
+        return sorted(
+            features,
+            key=lambda feature: (0 if feature.primary else 1, feature.name),
+        )
