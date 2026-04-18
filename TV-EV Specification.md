@@ -528,8 +528,8 @@ A deployment is not paywall-ready unless:
 2. entitlement revocation takes effect within the declared control window (default maximum: 60 seconds), and
 3. access logs are reproducible and exportable for compliance review.
 
-For exceptional cases where infrastructure constraints prevent the default, a temporary maximum of up to 5 minutes may be used only with explicit compliance approval.
-Systems using this exception remain paywall-ready only while the approved exception is active, documented, time-bounded, and tracked in certification artifacts.
+For exceptional cases where infrastructure constraints prevent the default, a revocation control-window maximum of up to 5 minutes may be used only with explicit compliance approval.
+Systems using this exception remain paywall-ready only while the approved exception period is active, documented, time-bounded, and tracked in certification artifacts.
 
 ---
 
@@ -563,7 +563,7 @@ Certified reports should include:
 All signal-producing assets and derivative outputs must be tracked with bibliographic metadata to support legal, security, and forensic controls.
 
 ### 21.1 Required Bibliographic Fields
-- asset identifier (immutable; required format: `urn:uuid:{uuidv4}`, e.g., `urn:uuid:f47ac10b-58cc-4372-a567-0e02b2c3d479`)
+- asset identifier (immutable; required format: `urn:uuid:` followed by UUIDv4, e.g., `urn:uuid:f47ac10b-58cc-4372-a567-0e02b2c3d479`)
 - source/origin reference
 - owner/custodian
 - creation and revision timestamps
