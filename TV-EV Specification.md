@@ -479,6 +479,7 @@ If you want, I can also turn this into:
 For Beamology Trade Engine dashboards implemented in TradingView Pine Script, use TradingView plot visuals guidance:
 
 - https://www.tradingview.com/pine-script-docs/visuals/overview/#plot-visuals
+- https://www.tradingview.com/pine-script-docs/visuals/overview/
 
 ### 18.1 Required Visual Mapping
 - Plot `TV_observed` as a line series over time.
@@ -492,7 +493,7 @@ For Beamology Trade Engine dashboards implemented in TradingView Pine Script, us
   - latency metrics (EV) in warm colors
   - composite score in neutral/high-contrast color
 - Use separate scales when mixing latency and score series.
-- Prefer clear titles and legend labels matching this specification field names.
+- Prefer clear titles and legend labels matching this specification's field names.
 
 ### 18.3 Compliance Notes for Plot-Based Reporting
 - Visuals are reporting outputs only and do not replace raw metric capture.
