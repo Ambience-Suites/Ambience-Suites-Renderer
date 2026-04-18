@@ -595,7 +595,9 @@ TV/EV systems operating under paywall and licensing policies must preserve evide
   - over what interval and at what volume
 
 ### 22.3 Minimum Forensic Retention
-- Retain core access, policy, and distribution records for a documented legal retention period approved by compliance (minimum baseline: 12 months unless stricter legal/regulatory obligations apply).
+- Retain core access, policy, and distribution records for a documented legal retention period approved by compliance.
+- Minimum retention baseline is 12 months.
+- Apply stricter retention where legal or regulatory obligations require it.
 - Certification artifacts must:
   - declare retention duration,
   - declare jurisdiction basis, and
