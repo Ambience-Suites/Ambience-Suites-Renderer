@@ -512,6 +512,9 @@ Beamology-enabled distributions that expose TV/EV score outputs, telemetry chann
   - historical exports
   - alert throughput limits
   - report download rights
+- Feature flags must declare access mode as either:
+  - **binary** (allow/deny), or
+  - **graduated** (allow with tier-specific rate, depth, or delay controls).
 - Enforce fail-closed behavior for unauthorized requests.
 
 ### 19.2 Metering and Audit Requirements
@@ -522,7 +525,7 @@ Beamology-enabled distributions that expose TV/EV score outputs, telemetry chann
 ### 19.3 Certification Gate
 A deployment is not paywall-ready unless:
 1. authorization checks are validated under load,
-2. entitlement revocation takes effect within the defined control window, and
+2. entitlement revocation takes effect within the declared control window (default maximum: 5 minutes), and
 3. access logs are reproducible and exportable for compliance review.
 
 ---
@@ -533,8 +536,8 @@ When TV/EV-derived signals are generated or redistributed, bandwidth sharing mus
 
 ### 20.1 Bandwidth License Envelope
 - Define per-license ceilings for:
-  - signals/sec
-  - bytes/sec
+  - signals/sec (complete emitted signal packets, not individual internal metric fields)
+  - bytes/sec (payload plus transport/protocol overhead on the licensed distribution channel)
   - concurrent subscriber streams
 - Associate ceilings with tenant, venue, and distribution channel identifiers.
 
@@ -557,7 +560,7 @@ Certified reports should include:
 All signal-producing assets and derivative outputs must be tracked with bibliographic metadata to support legal, security, and forensic controls.
 
 ### 21.1 Required Bibliographic Fields
-- asset identifier (immutable)
+- asset identifier (immutable; UUIDv4 or URN format required)
 - source/origin reference
 - owner/custodian
 - creation and revision timestamps
@@ -590,5 +593,5 @@ TV/EV systems operating under paywall and licensing policies must preserve evide
   - over what interval and at what volume
 
 ### 22.3 Minimum Forensic Retention
-- Retain core access, policy, and distribution records for the organizational minimum legal period.
-- Retention policy must be documented in certification artifacts and applied consistently across environments.
+- Retain core access, policy, and distribution records for a documented legal retention period approved by compliance.
+- Certification artifacts must declare the retention duration, jurisdiction basis, and applicable framework references (for example GDPR, SOX, or equivalent local regulation), and apply them consistently across environments.
