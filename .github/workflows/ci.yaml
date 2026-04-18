@@ -126,6 +126,16 @@ jobs:
           path: cycles/.git/modules/lib
           key: libs-${{ matrix.os }}-${{ github.ref }}
 
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install pytest
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install pytest
+
       - name: Build
         working-directory: cycles
         run: ${{ matrix.make }}
@@ -133,4 +143,3 @@ jobs:
       - name: Test
         working-directory: cycles
         run: ${{ matrix.make }} test
-
