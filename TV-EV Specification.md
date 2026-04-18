@@ -478,7 +478,7 @@ If you want, I can also turn this into:
 
 For Beamology Trade Engine dashboards implemented in TradingView Pine Script, use TradingView plot visuals guidance:
 
-- https://www.tradingview.com/pine-script-docs/visuals/overview/#plot-visuals
+- https://www.tradingview.com/pine-script-docs/visuals/overview/ (plot visuals section)
 
 ### 18.1 Required Visual Mapping
 - Plot `TV_observed` as a line series over time.
@@ -496,5 +496,5 @@ For Beamology Trade Engine dashboards implemented in TradingView Pine Script, us
 
 ### 18.3 Compliance Notes for Plot-Based Reporting
 - Visuals are reporting outputs only and do not replace raw metric capture.
-- Every plotted series must map to values produced by Sections 3-16.
+- Every plotted series must map to values produced by Sections 3-16 (core metric, normalization, scoring, and compliance definitions).
 - Certification reports must retain the underlying numeric outputs even when charts are used as the primary presentation layer.
