@@ -23,6 +23,7 @@ Usage
 from __future__ import annotations
 
 import argparse
+import ast
 import glob
 import hashlib
 import json
@@ -49,16 +50,31 @@ def load_box_file(file_path: str) -> Dict[str, Any]:
     """
     Load a ``.py`` box file and return the ``BOX`` dict.
 
+    Box files contain a single ``BOX = { ... }`` assignment whose value is a
+    Python literal (dict / list / str / int / float / bool / None).
+    The value is parsed with ``ast.literal_eval`` to prevent arbitrary code
+    execution when loading boxes from untrusted sources.
+
     Raises
     ------
     ValueError
         If the file does not define a valid ``BOX`` dict.
     """
-    namespace: Dict[str, Any] = {}
     with open(file_path, encoding="utf-8") as fh:
         source = fh.read()
-    exec(compile(source, file_path, "exec"), namespace)  # noqa: S102
-    box = namespace.get("BOX")
+
+    # Extract the literal value assigned to BOX = ...
+    # Accept lines like: BOX = {...}  (potentially multi-line)
+    prefix = "BOX = "
+    # Find the position of the assignment in the source
+    idx = source.find(prefix)
+    if idx == -1:
+        raise ValueError(f"{file_path!r} does not contain a BOX assignment")
+    literal_src = source[idx + len(prefix):]
+    try:
+        box = ast.literal_eval(literal_src)
+    except (ValueError, SyntaxError) as exc:
+        raise ValueError(f"{file_path!r}: cannot parse BOX value: {exc}") from exc
     if not isinstance(box, dict):
         raise ValueError(f"{file_path!r} does not define a valid BOX dict")
     return box

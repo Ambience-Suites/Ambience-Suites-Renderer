@@ -54,7 +54,7 @@ OUTPUT = {
     "file_format": "OPEN_EXR",              # broadcast-grade lossless
     "color_mode": "RGBA",
     "color_depth": "32",                    # full float
-    "exr_codec": "DWAB",                    # lossy EXR codec for delivery
+    "exr_codec": "DWAB",                    # lossy wavelet compression for delivery
     "output_path": "./install/renders/",
     "use_render_cache": False,
 }

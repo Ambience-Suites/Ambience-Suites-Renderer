@@ -101,7 +101,7 @@ class BroadcastPipeline:
             cmd.extend(extra_args)
         cmd.append(scene_xml)
 
-        result = subprocess.run(cmd)
+        result = subprocess.run(cmd, check=False)  # caller checks returncode
         return result.returncode
 
     # ------------------------------------------------------------------

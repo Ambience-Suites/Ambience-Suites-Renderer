@@ -9,6 +9,7 @@ frames and 1970ai analysis results to the analyst workstation.
 
 from __future__ import annotations
 
+import ast
 import glob
 import hashlib
 import json
@@ -27,15 +28,20 @@ def _load_box_file(file_path: str) -> Dict[str, Any]:
     """
     Load a Serial Box written as a Python literal.
 
-    The file is expected to define a module-level ``BOX`` variable.
+    Reads ``BOX = { ... }`` from the file and parses the value with
+    ``ast.literal_eval`` to avoid arbitrary code execution on untrusted files.
     """
-    namespace: Dict[str, Any] = {}
     with open(file_path, encoding="utf-8") as fh:
         source = fh.read()
 
-    # exec in a restricted namespace; only BOX is extracted
-    exec(compile(source, file_path, "exec"), namespace)  # noqa: S102
-    box = namespace.get("BOX")
+    prefix = "BOX = "
+    idx = source.find(prefix)
+    if idx == -1:
+        raise ValueError(f"File {file_path!r} does not contain a BOX assignment.")
+    try:
+        box = ast.literal_eval(source[idx + len(prefix):])
+    except (ValueError, SyntaxError) as exc:
+        raise ValueError(f"File {file_path!r}: cannot parse BOX value: {exc}") from exc
     if not isinstance(box, dict):
         raise ValueError(f"File {file_path!r} does not define a valid BOX dict.")
     return box

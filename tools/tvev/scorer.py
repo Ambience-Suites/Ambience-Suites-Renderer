@@ -238,7 +238,19 @@ def _reliability_multiplier(error_rate: float, critical_error: bool = False) -> 
     """
     Compute the reliability multiplier R = 1 - P.
 
-    Automatic failure (returns 0.0) when ``critical_error`` is True.
+    Parameters
+    ----------
+    error_rate:
+        Fraction of transactions that resulted in an error (0.0–1.0).
+    critical_error:
+        When True (any critical state corruption, order loss, etc.),
+        returns 0.0 — automatic fail regardless of raw scores.
+
+    Returns
+    -------
+    float
+        Multiplier in range 0.0–1.0 (higher is better).
+        Returns 0.0 on critical error; otherwise 1.0 – penalty.
     """
     if critical_error:
         return 0.0

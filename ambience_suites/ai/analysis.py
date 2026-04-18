@@ -226,7 +226,7 @@ class TechnicalAnalysis:
         macd_val = self.macd(symbol)
         if macd_val is not None:
             direction = "bullish" if macd_val["histogram"] > 0 else "bearish"
-            strength = min(abs(macd_val["histogram"]) / (abs(macd_val["macd"]) + 1e-9), 1.0)
+            strength = min(abs(macd_val["histogram"]) / max(abs(macd_val["macd"]), 1e-6), 1.0)
             sig = AnalysisSignal(
                 symbol=symbol,
                 signal_type="technical",
