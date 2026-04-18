@@ -34,6 +34,7 @@ from typing import Any, Dict, List, Optional, Tuple
 from tools.serial_boxes.schema import (
     VALID_BOX_TYPES,
     VALID_CONTENT_TYPES,
+    VALID_PERMISSION_RULESETS,
     VALID_COMPRESSION,
     _UUID4_RE,
     _SHA256_RE,
@@ -139,6 +140,17 @@ def validate_box_dict(box: Dict[str, Any]) -> List[str]:
                 f"payload.content_type {payload.get('content_type')!r} "
                 f"must be one of {VALID_CONTENT_TYPES}"
             )
+        ruleset = payload.get("permission_ruleset", "default")
+        if ruleset not in VALID_PERMISSION_RULESETS:
+            errors.append(
+                f"payload.permission_ruleset {ruleset!r} "
+                f"must be one of {tuple(VALID_PERMISSION_RULESETS)}"
+            )
+        elif payload.get("content_type") not in VALID_PERMISSION_RULESETS[ruleset]:
+            errors.append(
+                f"payload.content_type {payload.get('content_type')!r} "
+                f"is blocked by permission ruleset {ruleset!r}"
+            )
         if not isinstance(payload.get("data"), dict):
             errors.append("payload.data must be a dict")
 
@@ -148,6 +160,8 @@ def validate_box_dict(box: Dict[str, Any]) -> List[str]:
             "data": payload.get("data"),
             "dependencies": payload.get("dependencies", []),
         }
+        if "permission_ruleset" in payload:
+            payload_copy["permission_ruleset"] = payload.get("permission_ruleset")
         actual_checksum = hashlib.sha256(
             json.dumps(payload_copy, sort_keys=True, ensure_ascii=True).encode()
         ).hexdigest()
